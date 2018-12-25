@@ -7,7 +7,7 @@ describe('Login', () => {
 
   beforeEach(async () => {
     await page.goto(`${BASE_URL}/user/login`, { waitUntil: 'networkidle2' });
-    await page.evaluate(() => window.localStorage.setItem('authority-token', 'guest'));
+    await page.evaluate(() => window.sessionStorage.setItem('authority-token', 'guest'));
   });
 
   it('should login with failure', async () => {

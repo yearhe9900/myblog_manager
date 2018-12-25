@@ -2,7 +2,7 @@
 export function getAuthority(str) {
   // return localStorage.getItem('authority-token') || ['admin', 'user'];
   const authorityString =
-    typeof str === 'undefined' ? localStorage.getItem('authority-token') : str;
+    typeof str === 'undefined' ? sessionStorage.getItem('authority-token') : str;
   // authorityString could be admin, "admin", ["admin"]
   let authority;
   try {
@@ -18,5 +18,5 @@ export function getAuthority(str) {
 
 export function setAuthority(authority) {
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
-  return localStorage.setItem('authority-token', JSON.stringify(proAuthority));
+  return sessionStorage.setItem('authority-token', JSON.stringify(proAuthority));
 }
