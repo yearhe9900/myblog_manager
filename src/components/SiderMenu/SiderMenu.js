@@ -49,7 +49,6 @@ export default class SiderMenu extends PureComponent {
     const { logo, collapsed, onCollapse, fixSiderbar, theme } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
-
     const siderClassName = classNames(styles.sider, {
       [styles.fixSiderbar]: fixSiderbar,
       [styles.light]: theme === 'light',
@@ -68,7 +67,7 @@ export default class SiderMenu extends PureComponent {
         <div className={styles.logo} id="logo">
           <Link to="/">
             <img src={logo} alt="logo" />
-            <h1>Ant Design Pro</h1>
+            <h1>熊本熊的爱情</h1>
           </Link>
         </div>
         <Suspense fallback={<PageLoading />}>
