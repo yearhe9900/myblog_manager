@@ -7,6 +7,8 @@ export default {
   'menu.dashboard.newpage': '新页面',
   'menu.blog': '博客管理',
   'menu.blog.addblog': '添加博客',
+  'menu.classification': '类别管理',
+  'menu.classification.management': '类别列表',
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',
   'menu.form.stepform': '分步表单',

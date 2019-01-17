@@ -1,39 +1,17 @@
 import React from 'react';
-import { Button, Card, Row, Col, Upload, notification, Icon, Input, Checkbox, Tag } from 'antd';
+import { Button, Card, Row, Col, Upload, notification, Icon, Input } from 'antd';
 import { connect } from 'dva';
 import Editor from '@/components/MarkdownEditor'
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 const { TextArea } = Input;
-const CheckboxGroup = Checkbox.Group;
-
-const options = [
-  { label: <Tag color="#f50">#f50</Tag>, value: 'a' },
-  { label: <Tag color="#2db7f5">#2db7f5</Tag>, value: 'b' },
-  { label: <Tag color="#87d068">#87d068</Tag>, value: 'c' },
-  { label: <Tag color="#108ee9">#108ee9</Tag>, value: 'd' },
-  { label: <Tag color="#f50">#f50</Tag>, value: 'a' },
-  { label: <Tag color="#2db7f5">#2db7f5</Tag>, value: 'b' },
-  { label: <Tag color="#87d068">#87d068</Tag>, value: 'c' },
-  { label: <Tag color="#108ee9">#108ee9</Tag>, value: 'd' },
-  { label: <Tag color="#f50">#f50</Tag>, value: 'a' },
-  { label: <Tag color="#2db7f5">#2db7f5</Tag>, value: 'b' },
-  { label: <Tag color="#87d068">#87d068</Tag>, value: 'c' },
-  { label: <Tag color="#108ee9">#108ee9</Tag>, value: 'd' },
-  { label: <Tag color="#f50">#f50</Tag>, value: 'a' },
-  { label: <Tag color="#2db7f5">#2db7f5</Tag>, value: 'b' },
-  { label: <Tag color="#87d068">#87d068</Tag>, value: 'c' },
-  { label: <Tag color="#108ee9">#108ee9</Tag>, value: 'd' },
-];
 
 @connect(({ blogmodel }) => ({
   blogmodel,
 }))
 
 class AddBlog extends React.Component {
-
   saveMarkdown = () => {
-
   }
 
   handleChange = (value) => {
@@ -72,7 +50,6 @@ class AddBlog extends React.Component {
           <Input placeholder="输入文章主题" addonBefore='文章主题' />
           <TextArea placeholder="文章简介" autosize style={{ marginTop: 10 }} />
           <Input placeholder="输入封面图地址" addonBefore='封面图' style={{ marginTop: 10 }} />
-          <CheckboxGroup options={options} style={{ marginTop: 10 }} />
         </Card>
         <Card>
           <Row gutter={16}>
@@ -81,7 +58,7 @@ class AddBlog extends React.Component {
 
             </Col>
             <Col className="gutter-row" span={6}>
-              <Upload accept=".jpg, .jpeg, .png, .mp4" action="http://localhost:52442/api/UploadFile/Upload" headers={{ ContentType: 'multipart/form-data' }} onChange={this.onFileChange}>
+              <Upload accept=".jpg, .jpeg, .png, .mp4, .gif" action="http://localhost:52442/api/UploadFile/Upload" headers={{ ContentType: 'multipart/form-data' }} onChange={this.onFileChange}>
                 <Button><Icon type="upload" /> Upload</Button>
               </Upload>
             </Col>

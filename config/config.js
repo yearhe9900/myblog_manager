@@ -76,7 +76,6 @@ export default {
     '/api': {
       target: 'http://localhost:52442/',
       changeOrigin: true,
-      pathRewrite: { '^/api': '' },
     },
   },
   ignoreMomentLocale: true,

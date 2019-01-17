@@ -41,19 +41,32 @@ export default [
           },
         ],
       },
-         // forms
-         {
-          path: '/blog',
-          icon: 'form',
-          name: 'blog',
-          routes: [
-            {
-              path: '/blog/add-blog',
-              name: 'addblog',
-              component: './Blog/AddBlog',
-            }
-          ],
-        },
+      // blog
+      {
+        path: '/blog',
+        icon: 'form',
+        name: 'blog',
+        routes: [
+          {
+            path: '/blog/add-blog',
+            name: 'addblog',
+            component: './Blog/AddBlog',
+          }
+        ],
+      },
+      // classification
+      {
+        path: '/classification',
+        icon: 'form',
+        name: 'classification',
+        routes: [
+          {
+            path: '/classification/management',
+            name: 'management',
+            component: './Classification/ClassificationList',
+          }
+        ],
+      },
       // list
       {
         path: '/list',
