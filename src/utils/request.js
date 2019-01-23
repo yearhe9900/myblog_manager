@@ -73,6 +73,7 @@ export default function request(url, option) {
    * Maybe url has the same parameters
    */
   const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
+
   const hashcode = hash
     .sha256()
     .update(fingerprint)

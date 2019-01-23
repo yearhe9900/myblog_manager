@@ -1,34 +1,31 @@
 import React from 'react';
-import { Card, Table, Tag, Button, Modal, Input, Tooltip, Row, Col } from 'antd';
+import { Card,Table,Modal,Button } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import ModelDialog from '@/components/ModelDialog';
-import { SketchPicker } from 'react-color';
 
 const { confirm } = Modal;
 
-@connect(({ classificationmodel }) => ({
-    classificationmodel,
+@connect(({ blogmodel }) => ({
+    blogmodel,
 }))
 
-class Classification extends React.Component {
-    columns = [{
-        title: 'ID',
-        dataIndex: 'id',
-        key: 'id'
+class BlogList extends React.Component {
+    columns = [ {
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title',
     }, {
-        title: '名称',
-        dataIndex: 'name',
-        key: 'name',
-    }, {
-        title: '颜色',
-        dataIndex: 'color',
-        key: 'color',
+        title: '简介',
+        dataIndex: 'description',
+        key: 'description',
     }, {
         title: '标签',
-        dataIndex: 'color',
-        key: 'tag',
-        render: (text, row) => <Tag color={text}>{row.name}</Tag>
+        dataIndex: 'classifications',
+        key: 'classifications',
+    }, {
+        title: '点赞数',
+        dataIndex: 'commendation',
+        key: 'commendation',
     }, {
         title: '是否有效',
         dataIndex: 'enabled',
@@ -46,19 +43,19 @@ class Classification extends React.Component {
     }];
 
     componentDidMount() {
-        const { classificationmodel } = this.props;
-        this.reload(classificationmodel.pageNo, classificationmodel.pageSize);
+        const { blogmodel } = this.props;
+        this.reload(blogmodel.pageNo, blogmodel.pageSize);
     }
 
     btnClick = () => {
-        const { classificationmodel, dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeLoading", parm: true })
-        this.reload(classificationmodel.pageNo, classificationmodel.pageSize);
+        const { blogmodel, dispatch } = this.props;
+        dispatch({ type: "blogmodel/changeLoading", parm: true })
+        this.reload(blogmodel.pageNo, blogmodel.pageSize);
     }
 
     reload = (pageNo, pageSize) => {
         const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize } })
+        dispatch({ type: "blogmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize } })
     }
 
     edit = (id, name, color) => {
@@ -73,7 +70,7 @@ class Classification extends React.Component {
     }
 
     showConfirm = (id, isStart) => {
-        const { dispatch } = this.props;
+        // const { dispatch } = this.props;
         confirm({
             title: isStart ? '是否启动改类别？' : '是否禁用改类别？',
             okText: '是',
@@ -83,7 +80,7 @@ class Classification extends React.Component {
             keyboard: true,
             width: 250,
             onOk() {
-                dispatch({ type: "classificationmodel/update", parms: { ID: id, Enabled: isStart } })
+                // dispatch({ type: "classificationmodel/update", parms: { ID: id, Enabled: isStart } })
             },
         });
     }
@@ -123,49 +120,36 @@ class Classification extends React.Component {
     }
 
     render() {
-        const { classificationmodel, dispatch } = this.props;
+        const { blogmodel, dispatch } = this.props;
 
         const pagination = {
-            total: classificationmodel.total,
+            total: blogmodel.total,
             defaultCurrent: 1,
             defaultPageSize: 10,
-            current: classificationmodel.pageNo,
-            pageSize: classificationmodel.pageSize,
-            pageSizeOptions: classificationmodel.pageSizeOptions,
+            current: blogmodel.pageNo,
+            pageSize: blogmodel.pageSize,
+            pageSizeOptions: blogmodel.pageSizeOptions,
             showSizeChanger: true,
             onChange: (current, pageSize) => {
-                dispatch({ type: "classificationmodel/changePageInfo", parms: { pageNo: current, pageSize } })
+                dispatch({ type: "blogmodel/changePageInfo", parms: { pageNo: current, pageSize } })
                 this.reload(current, pageSize);
             },
             onShowSizeChange: (current, pageSize) => {
-                dispatch({ type: "classificationmodel/changePageInfo", parms: { pageNo: current, pageSize } })
+                dispatch({ type: "blogmodel/changePageInfo", parms: { pageNo: current, pageSize } })
                 this.reload(current, pageSize);
             },
         }
 
         return (
-          <PageHeaderWrapper title="类别管理">
+          <PageHeaderWrapper title="博客列表">
             <Card>
-              <ModelDialog title={classificationmodel.title} visible={classificationmodel.modelVisible} onOk={() => this.onOk()} onCancel={() => this.onCancel()}>
-                <Input placeholder="请输入类别名称" addonBefore="类别名称" value={classificationmodel.name} onChange={this.inputOnChangeName} />
-                <Row gutter={16}>
-                  <Col className="gutter-row" span={20}>
-                    <Input placeholder="请输入颜色" addonBefore="类别颜色" style={{ marginTop: 5 }} value={classificationmodel.color} onChange={this.inputOnChangeColor} />
-                  </Col>
-                  <Col className="gutter-row" span={4}>
-                    <Tooltip placement="right" title={<SketchPicker color={classificationmodel.color} onChange={this.handleChange} />}>
-                      <Button style={{ marginTop: 5 }}>拾色</Button>
-                    </Tooltip>
-                  </Col>
-                </Row>
-              </ModelDialog>
-              <Button type="primary" shape="circle" icon="reload" loading={classificationmodel.loading} onClick={this.btnClick} />
-              <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} />
-              <Table columns={this.columns} dataSource={classificationmodel.dataSource} loading={classificationmodel.loading} pagination={pagination} />
+              <Button type="primary" shape="circle" icon="reload" loading={blogmodel.loading} onClick={this.btnClick} />
+              {/* <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} /> */}
+              <Table columns={this.columns} dataSource={blogmodel.dataSource} loading={blogmodel.loading} pagination={pagination} />
             </Card>
           </PageHeaderWrapper>
         );
     }
 }
 
-export default Classification;
+export default BlogList;

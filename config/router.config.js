@@ -51,6 +51,11 @@ export default [
             path: '/blog/add-blog',
             name: 'addblog',
             component: './Blog/AddBlog',
+          },
+          {
+            path: '/blog/blog-list',
+            name: 'bloglist',
+            component: './Blog/BlogList',
           }
         ],
       },
@@ -67,7 +72,6 @@ export default [
           }
         ],
       },
-      // list
       {
         path: '/list',
         icon: 'table',
@@ -121,7 +125,6 @@ export default [
         name: 'profile',
         icon: 'profile',
         routes: [
-          // profile
           {
             path: '/profile/basic',
             name: 'basic',
