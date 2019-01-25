@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card,Table,Modal,Button } from 'antd';
+import { Card, Table, Modal, Button, Tag, Icon } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import { Link } from 'dva/router';
 
 const { confirm } = Modal;
 
@@ -10,7 +11,7 @@ const { confirm } = Modal;
 }))
 
 class BlogList extends React.Component {
-    columns = [ {
+    columns = [{
         title: '标题',
         dataIndex: 'title',
         key: 'title',
@@ -18,10 +19,12 @@ class BlogList extends React.Component {
         title: '简介',
         dataIndex: 'description',
         key: 'description',
+        width: 300
     }, {
         title: '标签',
-        dataIndex: 'classifications',
-        key: 'classifications',
+        dataIndex: 'tags',
+        key: 'tags',
+        render: (text) => text.map((item) => <Tag color={item.color} key={item.key}>{item.name}</Tag>)
     }, {
         title: '点赞数',
         dataIndex: 'commendation',
@@ -30,13 +33,13 @@ class BlogList extends React.Component {
         title: '是否有效',
         dataIndex: 'enabled',
         key: 'enabled',
-        render: (text) => text ? <span>是</span> : <span>否</span>
+        render: (text) => text ? <Icon type="smile" theme="twoTone" twoToneColor="#eb2f96" /> : <Icon type="frown" />
     }, {
         title: '操作',
         key: 'action',
         render: (text, row) => (
           <div>
-            <Button type="primary" size="small" onClick={() => this.edit(row.id, row.name, row.color)}>编辑</Button>
+            <Button type="primary" size="small"><Link to={`blog-detail?id=${row.id}`}>详情</Link></Button>
             {row.enabled ? <Button type="danger" size="small" style={{ marginLeft: 8 }} onClick={() => this.startUpOrProhibit(row.id, false)}>禁用</Button> : <Button size="small" style={{ marginLeft: 8 }} onClick={() => this.startUpOrProhibit(row.id, true)}>启用</Button>}
           </div>
         ),
@@ -58,10 +61,8 @@ class BlogList extends React.Component {
         dispatch({ type: "blogmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize } })
     }
 
-    edit = (id, name, color) => {
-        const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeEditID", parm: id })
-        dispatch({ type: "classificationmodel/changeModel", parms: { modelVisible: true, title: "编辑类别", isAdd: false, name, color } })
+    detail = (id) => {
+        console.log(id)
     }
 
     add = () => {
@@ -70,9 +71,9 @@ class BlogList extends React.Component {
     }
 
     showConfirm = (id, isStart) => {
-        // const { dispatch } = this.props;
+        const { dispatch } = this.props;
         confirm({
-            title: isStart ? '是否启动改类别？' : '是否禁用改类别？',
+            title: isStart ? '是否启动该博客？' : '是否禁用该博客？',
             okText: '是',
             okType: isStart ? 'primary' : 'danger',
             cancelText: '否',
@@ -80,7 +81,7 @@ class BlogList extends React.Component {
             keyboard: true,
             width: 250,
             onOk() {
-                // dispatch({ type: "classificationmodel/update", parms: { ID: id, Enabled: isStart } })
+                dispatch({ type: "blogmodel/startOrStop", parms: { ID: id, Enabled: isStart } })
             },
         });
     }
@@ -145,7 +146,7 @@ class BlogList extends React.Component {
             <Card>
               <Button type="primary" shape="circle" icon="reload" loading={blogmodel.loading} onClick={this.btnClick} />
               {/* <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} /> */}
-              <Table columns={this.columns} dataSource={blogmodel.dataSource} loading={blogmodel.loading} pagination={pagination} />
+              <Table columns={this.columns} dataSource={blogmodel.dataSource} loading={blogmodel.loading} pagination={pagination} style={{ marginTop: 5 }} />
             </Card>
           </PageHeaderWrapper>
         );

@@ -75,7 +75,7 @@ class Classification extends React.Component {
     showConfirm = (id, isStart) => {
         const { dispatch } = this.props;
         confirm({
-            title: isStart ? '是否启动改类别？' : '是否禁用改类别？',
+            title: isStart ? '是否启动该类别？' : '是否禁用该类别？',
             okText: '是',
             okType: isStart ? 'primary' : 'danger',
             cancelText: '否',
@@ -153,7 +153,7 @@ class Classification extends React.Component {
                     <Input placeholder="请输入颜色" addonBefore="类别颜色" style={{ marginTop: 5 }} value={classificationmodel.color} onChange={this.inputOnChangeColor} />
                   </Col>
                   <Col className="gutter-row" span={4}>
-                    <Tooltip placement="right" title={<SketchPicker color={classificationmodel.color} onChange={this.handleChange} />}>
+                    <Tooltip placement="right" title={<SketchPicker color={classificationmodel.color} onChange={this.handleChange} scroll={{ x: true }} />}>
                       <Button style={{ marginTop: 5 }}>拾色</Button>
                     </Tooltip>
                   </Col>
@@ -161,7 +161,7 @@ class Classification extends React.Component {
               </ModelDialog>
               <Button type="primary" shape="circle" icon="reload" loading={classificationmodel.loading} onClick={this.btnClick} />
               <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} />
-              <Table columns={this.columns} dataSource={classificationmodel.dataSource} loading={classificationmodel.loading} pagination={pagination} />
+              <Table columns={this.columns} dataSource={classificationmodel.dataSource} loading={classificationmodel.loading} pagination={pagination} style={{marginTop:5}} />
             </Card>
           </PageHeaderWrapper>
         );

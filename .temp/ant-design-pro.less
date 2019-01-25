@@ -979,6 +979,268 @@
   }
 }
 
+.antd-pro-components-marked-index-forContainer {
+  font-family: "Consolas", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  &.antd-pro-components-marked-index-forFullscreen {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+  }
+  .antd-pro-components-marked-index-forControlbar {
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6px;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+    user-select: none;
+    & > ul {
+      display: flex;
+      li {
+        display: flex;
+        align-items: center;
+        padding: 4px 6px;
+        margin: 8px 4px;
+        border-radius: 4px;
+        line-height: normal;
+        &.antd-pro-components-marked-index-forActive {
+          background: #ddd;
+        }
+        &:hover {
+          cursor: pointer;
+          background: #d8d8d8;
+        }
+        i {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  .antd-pro-components-marked-index-forEditor {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    color: rgba(0, 0, 0, 0.65);
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+    .antd-pro-components-marked-index-for-panel {
+      height: 100%;
+      flex: 1;
+      width: 50%;
+      overflow: auto;
+      .antd-pro-components-marked-index-forPreview {
+        border-left: 1px solid #ccc;
+        padding: 10px 14px;
+        background: #fcfcfc;
+      }
+    }
+    .antd-pro-components-marked-index-forPreview-hidden {
+      display: none;
+    }
+    .antd-pro-components-marked-index-forEditor-wrapper {
+      line-height: 1.6;
+      .antd-pro-components-marked-index-forEditor-block {
+        display: flex;
+        justify-content: space-between;
+        min-height: 100%;
+      }
+      .antd-pro-components-marked-index-forLineNum {
+        list-style: none;
+        background: #eee;
+        padding: 8px 0 20%;
+        min-width: 30px;
+        text-align: center;
+        &.antd-pro-components-marked-index-hidden {
+          display: none;
+        }
+        li {
+          list-style: none;
+        }
+      }
+      .antd-pro-components-marked-index-forEditorContent {
+        flex: 1;
+        position: relative;
+        height: 100%;
+        margin-left: 10px;
+        pre {
+          padding: 8px 0;
+          display: block;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          visibility: hidden;
+          margin: 0;
+          font-family: inherit;
+        }
+      }
+    }
+  }
+  textarea {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 8px 0;
+    font-family: inherit;
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    color: rgba(0, 0, 0, 0.65);
+    background: none;
+    line-height: inherit;
+  }
+}
+.antd-pro-components-marked-index-forContainer ul, .antd-pro-components-marked-index-forContainer ol, .antd-pro-components-marked-index-forContainer li {
+  margin: 0;
+  padding: 0;
+}
+.antd-pro-components-marked-index-forMarkdownPreview {
+  line-height: 2;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  a {
+    color: #0366d6;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  ol {
+    & > li {
+      list-style-type: decimal;
+    }
+  }
+  blockquote {
+    margin: 0;
+    margin-bottom: 0.6em;
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+    p {
+      text-indent: 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  pre {
+    padding: 0.6em;
+    overflow: auto;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    code {
+      padding: 0;
+      margin: 0;
+      font-size: 100%;
+      background: transparent;
+    }
+  }
+  code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+  }
+  hr {
+    margin-bottom: 0.6em;
+    height: 1px;
+    background: #dadada;
+    border: none;
+  }
+  table {
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 0.6em;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 0.6em;
+  }
+}
+.antd-pro-components-marked-index-forMarkdownPreview p,
+.antd-pro-components-marked-index-forMarkdownPreview blockquote,
+.antd-pro-components-marked-index-forMarkdownPreview ul,
+.antd-pro-components-marked-index-forMarkdownPreview ol,
+.antd-pro-components-marked-index-forMarkdownPreview dl,
+.antd-pro-components-marked-index-forMarkdownPreview pre {
+  margin-top: 0;
+  margin-bottom: 0.6em;
+}
+.antd-pro-components-marked-index-forMarkdownPreview h1,
+.antd-pro-components-marked-index-forMarkdownPreview h2 {
+  border-bottom: 1px solid #e2e2e2;
+}
+.antd-pro-components-marked-index-forMarkdownPreview h1,
+.antd-pro-components-marked-index-forMarkdownPreview h2,
+.antd-pro-components-marked-index-forMarkdownPreview h3,
+.antd-pro-components-marked-index-forMarkdownPreview h4,
+.antd-pro-components-marked-index-forMarkdownPreview h5,
+.antd-pro-components-marked-index-forMarkdownPreview h6 {
+  padding: 0;
+  margin: 0 0 0.6em;
+  font-weight: 600;
+  text-indent: 0;
+}
+.antd-pro-components-marked-index-forMarkdownPreview h1:target,
+.antd-pro-components-marked-index-forMarkdownPreview h2:target,
+.antd-pro-components-marked-index-forMarkdownPreview h3:target,
+.antd-pro-components-marked-index-forMarkdownPreview h4:target,
+.antd-pro-components-marked-index-forMarkdownPreview h5:target,
+.antd-pro-components-marked-index-forMarkdownPreview h6:target {
+  padding-top: 4.5rem;
+}
+.antd-pro-components-marked-index-forMarkdownPreview ul,
+.antd-pro-components-marked-index-forMarkdownPreview ol {
+  padding: 0.2em 0.8em;
+}
+.antd-pro-components-marked-index-forMarkdownPreview ul > li,
+.antd-pro-components-marked-index-forMarkdownPreview ol > li {
+  line-height: 2;
+  padding-left: 0.2em;
+  margin-left: 0.2em;
+  list-style-type: disc;
+}
+.antd-pro-components-marked-index-forMarkdownPreview ul > li > p,
+.antd-pro-components-marked-index-forMarkdownPreview ol > li > p {
+  text-indent: 0;
+}
+.antd-pro-components-marked-index-forMarkdownPreview ul > li > ul li,
+.antd-pro-components-marked-index-forMarkdownPreview ol > li > ul li {
+  list-style-type: circle;
+}
+.antd-pro-components-marked-index-forMarkdownPreview ul > li > ul:last-child,
+.antd-pro-components-marked-index-forMarkdownPreview ol > li > ul:last-child {
+  margin-bottom: 0;
+}
+.antd-pro-components-marked-index-forMarkdownPreview > ul, .antd-pro-components-marked-index-forMarkdownPreview ol {
+  padding: 0 20px;
+}
+.antd-pro-components-marked-index-forMarkdownPreview table th, .antd-pro-components-marked-index-forMarkdownPreview table td {
+  padding: 0.1em 0.4em;
+  border: 1px solid #ddd;
+}
+
 
 
 .antd-pro-components-notice-icon-index-popover {

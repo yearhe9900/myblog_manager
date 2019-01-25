@@ -1,4 +1,4 @@
-FROM circleci/node:latest-browsers
+FROM node
 
 WORKDIR /usr/src/app/
 USER root
@@ -7,6 +7,6 @@ RUN yarn
 
 COPY ./ ./
 
-RUN npm run test:all
+EXPOSE 3000
 
 CMD ["npm", "run", "build"]

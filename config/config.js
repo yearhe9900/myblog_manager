@@ -78,6 +78,12 @@ export default {
       changeOrigin: true,
     },
   },
+  // proxy: {
+  //   '/api': {
+  //     target: 'http://118.24.44.181:3002/',
+  //     changeOrigin: true,
+  //   },
+  // },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,

@@ -1,5 +1,5 @@
 import { getEnabledClassificationList } from '@/services/classification';
-import { addBlogInfo, editBlogInfo, getBlogs } from '@/services/blog';
+import { addBlogInfo, editBlogInfo, getBlogs, startOrStopBlog } from '@/services/blog';
 import { message } from 'antd';
 
 export default {
@@ -23,7 +23,41 @@ export default {
   },
 
   effects: {
+    *startOrStop({ parms }, { call, put }) {
+      yield put({
+        type: 'saveLoading',
+        payload: true
+      });
+      const response = yield call(startOrStopBlog, parms);
+      if (response && response.code === "200") {
+        const response2 = yield call(getBlogs, parms);
+        if (response2 && response2.code === "200") {
+          yield put({
+            type: 'saveList',
+            payload: response2,
+          });
+        }
+        else if (response2 && response2.code !== "200") {
+          message.error(response2.msg);
+          yield put({
+            type: 'saveLoading',
+            payload: false
+          });
+        }
+      }
+      else if (response && response.code !== "200") {
+        message.error(response.msg);
+        yield put({
+          type: 'saveLoading',
+          payload: false
+        });
+      }
+    },
     *fetchList({ parms }, { call, put }) {
+      yield put({
+        type: 'saveLoading',
+        payload: true
+      });
       const response = yield call(getBlogs, parms);
       if (response && response.code === "200") {
         yield put({
@@ -33,11 +67,11 @@ export default {
       }
       else if (response && response.code !== "200") {
         message.error(response.msg);
-        yield put({
-          type: 'saveLoading',
-          payload: false
-        });
       }
+      yield put({
+        type: 'saveLoading',
+        payload: false
+      });
     },
     *handleChange({ parm }, { put }) {
       yield put({

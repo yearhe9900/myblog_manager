@@ -56,6 +56,12 @@ export default [
             path: '/blog/blog-list',
             name: 'bloglist',
             component: './Blog/BlogList',
+          },
+          {
+            path: '/blog/blog-detail',
+            name: 'blogdetail',
+            component: './Blog/BlogDetail',
+            hideInMenu: true,
           }
         ],
       },

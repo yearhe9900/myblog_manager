@@ -20,3 +20,17 @@ export async function getBlogs(params) {
         body: params,
     });
 }
+
+export async function startOrStopBlog(params) {
+    return request('/api/BlogManager/StartOrStopBlog', {
+        method: 'POST',
+        body: params,
+    });
+}
+
+export async function getBlogDetailById(params) {
+    return request('/api/BlogManager/GetBlogDetailById', {
+        method: 'POST',
+        body: params,
+    });
+}

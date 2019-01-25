@@ -1,6 +1,6 @@
 // import React, { Suspense } from 'react';
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import DocumentTitle from 'react-document-title';
 import isEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
@@ -185,6 +185,7 @@ class BasicLayout extends React.PureComponent {
             <Authorized authority={routerConfig} noMatch={<Exception403 />}>
               {children}
             </Authorized>
+            <BackTop />
           </Content>
           <Footer />
         </Layout>
