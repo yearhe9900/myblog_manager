@@ -14,7 +14,8 @@ export default {
         cdt: '',
         enabled: false,
         dividerDashed: true,
-        loading: true
+        loading: true,
+        classificationIds: [],
     },
 
     effects: {
@@ -74,6 +75,7 @@ export default {
             };
         },
         saveBlogDetail(state, action) {
+            console.log(action)
             return {
                 ...state,
                 commendation: action.payload.commendation,
@@ -84,7 +86,8 @@ export default {
                 tags: action.payload.tags,
                 title: action.payload.title,
                 cdt: action.payload.cdt,
-                enabled: action.payload.enabled
+                enabled: action.payload.enabled,
+                classificationIds: action.payload.classificationIds,
             };
         },
     },

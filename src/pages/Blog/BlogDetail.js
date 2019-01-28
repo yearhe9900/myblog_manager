@@ -9,6 +9,7 @@ import Exception404 from '@/pages/Exception/404forBlog';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import marked from '@/components/Marked';
+// import Link from 'umi/link';
 
 const { confirm } = Modal;
 
@@ -47,6 +48,15 @@ class BlogDetail extends Component {
     this.showConfirm(text, isStart)
   }
 
+  saveMarkdown = () => {
+    const { blogdetailmodel, dispatch ,history} = this.props;
+    dispatch({
+      type: 'blogmodel/saveDataByBlogDetail',
+      parms: { id: blogdetailmodel.id, title: blogdetailmodel.title, description: blogdetailmodel.description, logo: blogdetailmodel.logo, classificationIds: blogdetailmodel.classificationIds, content: blogdetailmodel.content,enabled:blogdetailmodel.enabled }
+    });
+    history.push('add-blog')
+  }
+
   render() {
     const { blogdetailmodel } = this.props;
     const input = blogdetailmodel.content;
@@ -57,7 +67,7 @@ class BlogDetail extends Component {
       renderResult = (
         <div>
           <div style={{ float: 'right', marginBottom: 10 }}>
-            <Button type="primary">编辑</Button>
+            <Button type="primary" onClick={this.saveMarkdown}>编辑</Button>
             {blogdetailmodel.enabled ? <Button type="danger" style={{ marginLeft: 8 }} onClick={() => this.startUpOrProhibit(blogdetailmodel.id, false)}>禁用</Button> : <Button style={{ marginLeft: 8 }} onClick={() => this.startUpOrProhibit(blogdetailmodel.id, true)}>启用</Button>}
           </div>
           <Divider dashed={blogdetailmodel.dividerDashed} />

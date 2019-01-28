@@ -19,18 +19,26 @@ export default {
     pageSize: 10,
     pageSizeOptions: ['10', '20', '50', '100'],
     loading: true,
-    dataSource: []
+    dataSource: [],
+    enabled: true
   },
 
   effects: {
-    *startOrStop({ parms }, { call, put }) {
+    *saveDataByBlogDetail({ parms }, { put }) {
+      yield put({
+        type: 'saveData',
+        payload: parms
+      });
+    },
+    *startOrStop({ parms }, { call, put ,select}) {
       yield put({
         type: 'saveLoading',
         payload: true
       });
       const response = yield call(startOrStopBlog, parms);
       if (response && response.code === "200") {
-        const response2 = yield call(getBlogs, parms);
+        const states = yield select(state => state);
+        const response2 = yield call(getBlogs, { PageNo: states.blogmodel.pageNo, PageSize: states.blogmodel.pageSize });
         if (response2 && response2.code === "200") {
           yield put({
             type: 'saveList',
@@ -167,6 +175,26 @@ export default {
         payload: false
       });
     },
+    *editBlogThenOut({ parms }, { call, put }) {
+      yield put({
+        type: 'saveSubmitLoading',
+        payload: true
+      });
+      const response = yield call(editBlogInfo, parms);
+      if (response && response.code === "200") {
+        message.success(response.msg);
+        yield put({
+          type: 'initializeData',
+        });
+      }
+      else if (response && response.code !== "200") {
+        message.error(response.msg);
+      }
+      yield put({
+        type: 'saveSubmitLoading',
+        payload: false
+      });
+    },
     *getClassificationList(_, { call, put }) {
       const response = yield call(getEnabledClassificationList);
       if (response && response.code === "200") {
@@ -279,6 +307,18 @@ export default {
         description: '',
         logo: '',
         classificationIds: []
+      };
+    },
+    saveData(state, action) {
+      return {
+        ...state,
+        id: action.payload.id,
+        quillValue: action.payload.content,
+        title: action.payload.title,
+        description: action.payload.description,
+        logo: action.payload.logo,
+        classificationIds: action.payload.classificationIds,
+        enabled: action.payload.enabled,
       };
     }
   },

@@ -6,7 +6,7 @@ export default {
   'menu.dashboard.workplace': '工作台',
   'menu.dashboard.newpage': '新页面',
   'menu.blog': '博客管理',
-  'menu.blog.addblog': '添加博客',
+  'menu.blog.addblog': '增改博客',
   'menu.blog.blogdetail': '博客详情',
   'menu.blog.bloglist': '博客列表',
   'menu.classification': '类别管理',

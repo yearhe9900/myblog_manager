@@ -3,6 +3,10 @@ import { Card, Table, Modal, Button, Tag, Icon } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { Link } from 'dva/router';
+import moment from 'moment'; 
+import 'moment/locale/zh-cn'
+
+moment.locale('zh-cn');  
 
 const { confirm } = Modal;
 
@@ -29,6 +33,7 @@ class BlogList extends React.Component {
         title: '时间',
         dataIndex: 'cdt',
         key: 'cdt',
+        render: (text) => moment(text).format('YYYY-MM-DD HH:mm:ss')
     }, {
         title: '点赞数',
         dataIndex: 'commendation',
@@ -63,10 +68,6 @@ class BlogList extends React.Component {
     reload = (pageNo, pageSize) => {
         const { dispatch } = this.props;
         dispatch({ type: "blogmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize } })
-    }
-
-    detail = (id) => {
-        console.log(id)
     }
 
     add = () => {

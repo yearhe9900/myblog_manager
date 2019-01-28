@@ -24,7 +24,7 @@ class AddBlog extends React.Component {
     if (blogmodel.id) {
       dispatch({
         type: 'blogmodel/editBlog',
-        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
+        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
       });
     }
     else {
@@ -37,10 +37,18 @@ class AddBlog extends React.Component {
 
   saveMarkdownThenOut = () => {
     const { blogmodel, dispatch } = this.props;
-    dispatch({
-      type: 'blogmodel/addBlogThenOut',
-      parms: { Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
-    });
+    if (blogmodel.id) {
+      dispatch({
+        type: 'blogmodel/editBlogThenOut',
+        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
+      });
+    }
+    else {
+      dispatch({
+        type: 'blogmodel/addBlogThenOut',
+        parms: { Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
+      });
+    }
   }
 
   handleChange = (value) => {
@@ -107,9 +115,15 @@ class AddBlog extends React.Component {
 
   render() {
     const { blogmodel } = this.props;
-
+    let phTitle = "添加博客";
+    if (blogmodel.id) {
+      phTitle = "编辑博客";
+    }
+    else {
+      phTitle = "添加博客";
+    }
     return (
-      <PageHeaderWrapper title="添加博客">
+      <PageHeaderWrapper title={phTitle}>
         <Card>
           <Input placeholder="输入文章主题" addonBefore='文章主题' value={blogmodel.title} onChange={this.titleChange} />
           <TextArea placeholder="文章简介" autosize style={{ marginTop: 10 }} value={blogmodel.description} onChange={this.descriptionChange} />
