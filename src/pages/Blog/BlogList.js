@@ -26,6 +26,10 @@ class BlogList extends React.Component {
         key: 'tags',
         render: (text) => text.map((item) => <Tag color={item.color} key={item.key}>{item.name}</Tag>)
     }, {
+        title: '时间',
+        dataIndex: 'cdt',
+        key: 'cdt',
+    }, {
         title: '点赞数',
         dataIndex: 'commendation',
         key: 'commendation',
