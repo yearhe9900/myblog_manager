@@ -22,7 +22,7 @@ export async function addClassification(params) {
 }
 
 export async function getEnabledClassificationList() {
-  return request('/api/Classification/GetEnabledClassificationList', {
+  return request('/api/values/GetEnabledClassificationList', {
     method: 'POST',
   });
 }

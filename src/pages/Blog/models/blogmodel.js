@@ -20,17 +20,40 @@ export default {
     pageSizeOptions: ['10', '20', '50', '100'],
     loading: true,
     dataSource: [],
-    enabled: true
+    enabled: true,
+    searchTitle: "",
+    searchStartDate: null,
+    searchEndDate: null,
+    searchTag: "",
+    searchEnabled: null
   },
 
   effects: {
+    *changeInputTitle({ parms }, { put }) {
+      yield put({
+        type: 'saveSearchTitle',
+        payload: parms
+      });
+    },
+    *changeSelectTag({ parms }, { put }) {
+      yield put({
+        type: 'saveSearchTag',
+        payload: parms
+      });
+    },
+    *changeSelectEnabled({ parms }, { put }) {
+      yield put({
+        type: 'saveSearchEnabled',
+        payload: parms
+      });
+    },
     *saveDataByBlogDetail({ parms }, { put }) {
       yield put({
         type: 'saveData',
         payload: parms
       });
     },
-    *startOrStop({ parms }, { call, put ,select}) {
+    *startOrStop({ parms }, { call, put, select }) {
       yield put({
         type: 'saveLoading',
         payload: true
@@ -222,6 +245,24 @@ export default {
   },
 
   reducers: {
+    saveSearchEnabled(state, action){
+      return {
+        ...state,
+        searchEnabled: action.payload.searchEnabled,
+      };
+    },
+    saveSearchTitle(state, action){
+      return {
+        ...state,
+        searchTitle: action.payload.searchTitle,
+      };
+    },
+    saveSearchTag(state, action){
+      return {
+        ...state,
+        searchTag: action.payload.searchTag,
+      };
+    },
     saveLoading(state, action) {
       return {
         ...state,

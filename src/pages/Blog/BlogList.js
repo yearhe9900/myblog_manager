@@ -10,7 +10,7 @@ moment.locale('zh-cn');
 
 const { confirm } = Modal;
 const { RangePicker } = DatePicker;
-const {Option} = Select;
+const { Option } = Select;
 
 @connect(({ blogmodel }) => ({
     blogmodel,
@@ -57,19 +57,22 @@ class BlogList extends React.Component {
     }];
 
     componentDidMount() {
-        const { blogmodel } = this.props;
-        this.reload(blogmodel.pageNo, blogmodel.pageSize);
+        const { blogmodel, dispatch } = this.props;
+        dispatch({
+            type: 'blogmodel/getClassificationList',
+        });
+        this.reload(blogmodel.pageNo, blogmodel.pageSize, blogmodel.searchTitle, blogmodel.searchStartDate, blogmodel.searchEndDate, blogmodel.searchTag, blogmodel.searchEnabled);
     }
 
     btnClick = () => {
         const { blogmodel, dispatch } = this.props;
         dispatch({ type: "blogmodel/changeLoading", parm: true })
-        this.reload(blogmodel.pageNo, blogmodel.pageSize);
+        this.reload(blogmodel.pageNo, blogmodel.pageSize, blogmodel.searchTitle, blogmodel.searchStartDate, blogmodel.searchEndDate, blogmodel.searchTag, blogmodel.searchEnabled);
     }
 
-    reload = (pageNo, pageSize) => {
+    reload = (pageNo, pageSize, title, startDate, endDate, classificationId, enabled) => {
         const { dispatch } = this.props;
-        dispatch({ type: "blogmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize } })
+        dispatch({ type: "blogmodel/fetchList", parms: { PageNo: pageNo, PageSize: pageSize, Title: title, StartDate: startDate, EndDate: endDate, ClassificationId: classificationId, Enabled: enabled } })
     }
 
     add = () => {
@@ -112,19 +115,28 @@ class BlogList extends React.Component {
         dispatch({ type: "classificationmodel/changeModel", parms: { modelVisible: false, name: "", color: "" } })
     }
 
-    inputOnChangeName = (e) => {
+    inputOnChangeTitle = (e) => {
         const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeInputName", parms: { name: e.target.value } })
+        dispatch({ type: "blogmodel/changeInputTitle", parms: { searchTitle: e.target.value } })
     }
 
-    inputOnChangeColor = (e) => {
+    selectOnChangeTag = (value) => {
+        const id = value==="all"?null:value;
         const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeInputColor", parms: { color: e.target.value } })
+        dispatch({ type: "blogmodel/changeSelectTag", parms: { searchTag: id } })
     }
 
-    handleChange = (value) => {
+    selectOnChangeEnabled = (value) => {
+        let enabled =null;
+        switch(value)
+        {
+            case "all":enabled=null;break;
+            case "1":enabled=true;break;
+            case "2":enabled=false;break;
+            default:enabled=null;break;
+        }
         const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeInputColor", parms: { color: value.hex } })
+        dispatch({ type: "blogmodel/changeSelectEnabled", parms: { searchEnabled: enabled } })
     }
 
     render() {
@@ -138,13 +150,14 @@ class BlogList extends React.Component {
             pageSize: blogmodel.pageSize,
             pageSizeOptions: blogmodel.pageSizeOptions,
             showSizeChanger: true,
+            showTotal: (total, range) => `${range[0]}-${range[1]} | 共 ${total} 页`,
             onChange: (current, pageSize) => {
                 dispatch({ type: "blogmodel/changePageInfo", parms: { pageNo: current, pageSize } })
-                this.reload(current, pageSize);
+                this.reload(current, pageSize, blogmodel.searchTitle, blogmodel.searchStartDate, blogmodel.searchEndDate, blogmodel.searchTag, blogmodel.searchEnabled);
             },
             onShowSizeChange: (current, pageSize) => {
                 dispatch({ type: "blogmodel/changePageInfo", parms: { pageNo: current, pageSize } })
-                this.reload(current, pageSize);
+                this.reload(current, pageSize, blogmodel.searchTitle, blogmodel.searchStartDate, blogmodel.searchEndDate, blogmodel.searchTag, blogmodel.searchEnabled);
             },
         }
 
@@ -153,39 +166,41 @@ class BlogList extends React.Component {
             <Card>
               <Row gutter={16}>
                 <Col className="gutter-row" span={6}>
-                  <Form.Item label="标题" style={{ display: 'flex' }}><Input placeholder="default size" style={{ minWidth: 330 }} /></Form.Item>
+                  <Form.Item label="标题" style={{ display: 'flex' }}><Input placeholder="请填写标题" style={{ minWidth: 330 }} onChange={this.inputOnChangeTitle} /></Form.Item>
                 </Col>
                 <Col className="gutter-row" span={6}>
                   <Form.Item label="时间" style={{ display: 'flex' }}><RangePicker style={{ minWidth: 330 }} /></Form.Item>
                 </Col>
                 <Col className="gutter-row" span={6}>
                   <Form.Item label="标签" style={{ display: 'flex' }}>
-                    <Select defaultValue="lucy" style={{ minWidth: 330 }}>
-                      <Option value="jack">Jack</Option>
-                      <Option value="lucy">Lucy</Option>
-                      <Option value="disabled">Disabled</Option>
-                      <Option value="Yiminghe">yiminghe</Option>
+                    <Select defaultValue="all" style={{ minWidth: 330 }} onChange={this.selectOnChangeTag}>
+                      <Option value="all"><Tag>全部</Tag></Option>
+                      {
+                                        blogmodel.classificationList.map((item) => (
+                                          <Option key={item.id} value={item.id}>{<Tag color={item.color}>{item.name}</Tag>}</Option>
+                                        ))
+                                    }
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" span={6}>
                   <Form.Item label="有效" style={{ display: 'flex' }}>
-                    <Select defaultValue="lucy" style={{ minWidth: 330 }}>
-                      <Option value="jack">Jack</Option>
-                      <Option value="lucy">Lucy</Option>
+                    <Select defaultValue="all" style={{ minWidth: 330 }} onChange={this.selectOnChangeEnabled}>
+                      <Option value="all">全部</Option>
+                      <Option value="1">有效</Option>
+                      <Option value="2">无效</Option>
                     </Select>
                   </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col className="gutter-row" span={18}>
-                  <Button type="primary" shape="circle" icon="reload" loading={blogmodel.loading} onClick={this.btnClick} style={{ marginBottom: 5 }} />
+                  {/* <Button type="primary" shape="circle" icon="reload" loading={blogmodel.loading} onClick={this.btnClick} style={{ marginBottom: 5 }} /> */}
                 </Col>
                 <Col className="gutter-row" span={6}>
                   <Button type="primary" icon="search" ghost loading={blogmodel.loading} onClick={this.btnClick} style={{ marginBottom: 5 }}>搜索</Button>
                 </Col>
               </Row>
-              {/* <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} /> */}
               <Table columns={this.columns} dataSource={blogmodel.dataSource} loading={blogmodel.loading} pagination={pagination} style={{ marginTop: 5 }} />
             </Card>
           </PageHeaderWrapper>

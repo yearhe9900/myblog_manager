@@ -103,13 +103,6 @@ export async function updateFakeList(params) {
   });
 }
 
-// export async function fakeAccountLogin(params) {
-//   return request('/api/login/account', {
-//     method: 'POST',
-//     body: params,
-//   });
-// }
-
 export async function fakeAccountLogin(params) {
   return request('/connect/token', {
     method: 'POST',
