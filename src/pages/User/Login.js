@@ -42,15 +42,17 @@ class LoginPage extends Component {
     });
 
   handleSubmit = (err, values) => {
-    const { type } = this.state;
     if (!err) {
       const { dispatch } = this.props;
+      const formData = new FormData();
+      formData.append("grant_type","password");
+      formData.append("client_id","pwd.client");
+      formData.append("client_secret","secret");
+      formData.append("username",values.userName);
+      formData.append("password",values.password);
       dispatch({
         type: 'login/login',
-        payload: {
-          ...values,
-          type,
-        },
+        payload: formData,
       });
     }
   };

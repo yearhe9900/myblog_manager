@@ -15,29 +15,40 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        const urlParams = new URL(window.location.href);
-        const params = getPageQuery();
-        let { redirect } = params;
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
-            if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
+      if (response) {
+        // sessionStorage.setItem("access_token", response.access_token)
+        // sessionStorage.setItem("expires_in", response.expires_in)
+        // sessionStorage.setItem("token_type", response.token_type)
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: 'ok',
+            type: 'account',
+            currentAuthority: 'admin',
+          },
+        });
+        // Login successfully
+        if(true){
+          reloadAuthorized();
+          const urlParams = new URL(window.location.href);
+          const params = getPageQuery();
+          let { redirect } = params;
+          
+          if (redirect) {
+            const redirectUrlParams = new URL(redirect);
+            if (redirectUrlParams.origin === urlParams.origin) {
+              redirect = redirect.substr(urlParams.origin.length);
+              if (redirect.match(/^\/.*#/)) {
+                redirect = redirect.substr(redirect.indexOf('#') + 1);
+              }
+            } else {
+              window.location.href = redirect;
+              return;
             }
-          } else {
-            window.location.href = redirect;
-            return;
-          }
         }
-        yield put(routerRedux.replace(redirect || '/'));
+
+          yield put(routerRedux.replace(redirect || '/'));
+        }
       }
     },
 

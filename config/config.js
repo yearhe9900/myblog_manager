@@ -77,7 +77,12 @@ export default {
       target: 'http://localhost:52442/',
       changeOrigin: true,
     },
+    '/connect/token': {
+      target: 'http://localhost:52443/',
+      changeOrigin: true,
+    }
   },
+
   // proxy: {
   //   '/api': {
   //     target: 'http://118.24.44.181:3002/',

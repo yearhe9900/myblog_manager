@@ -89,6 +89,7 @@ export default function request(url, option) {
     newOptions.method === 'DELETE'
   ) {
     if (!(newOptions.body instanceof FormData)) {
+
       newOptions.headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
@@ -132,6 +133,7 @@ export default function request(url, option) {
     })
     .catch(e => {
       const status = e.name;
+      console.log(status)
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */
