@@ -16,9 +16,9 @@ export default {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
       if (response) {
-        // sessionStorage.setItem("access_token", response.access_token)
-        // sessionStorage.setItem("expires_in", response.expires_in)
-        // sessionStorage.setItem("token_type", response.token_type)
+        sessionStorage.setItem("access_token", response.access_token)
+        sessionStorage.setItem("expires_in", response.expires_in)
+        sessionStorage.setItem("token_type", response.token_type)
         yield put({
           type: 'changeLoginStatus',
           payload: {

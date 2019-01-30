@@ -64,6 +64,8 @@ const checkStatus = response => {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
+  const tokentype = sessionStorage.getItem("token_type");
+  const accesstoken = sessionStorage.getItem("access_token");
   const options = {
     expirys: isAntdPro(),
     ...option,
@@ -94,6 +96,7 @@ export default function request(url, option) {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
+        Authorization: `${tokentype} ${accesstoken}`
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
@@ -101,6 +104,7 @@ export default function request(url, option) {
       newOptions.headers = {
         Accept: 'application/json',
         ...newOptions.headers,
+        Authorization: `${tokentype} ${accesstoken}`
       };
     }
   }
@@ -133,7 +137,6 @@ export default function request(url, option) {
     })
     .catch(e => {
       const status = e.name;
-      console.log(status)
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */
