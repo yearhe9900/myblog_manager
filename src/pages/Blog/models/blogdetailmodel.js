@@ -75,7 +75,6 @@ export default {
             };
         },
         saveBlogDetail(state, action) {
-            console.log(action)
             return {
                 ...state,
                 commendation: action.payload.commendation,

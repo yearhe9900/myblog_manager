@@ -6,7 +6,8 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import 'highlight.js/styles/vs.css';
 import style from '@/components/Marked/index.less';
 import Exception404 from '@/pages/Exception/404forBlog';
-
+import moment from 'moment';
+import 'moment/locale/zh-cn'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import marked from '@/components/Marked';
 // import Link from 'umi/link';
@@ -83,7 +84,7 @@ class BlogDetail extends Component {
           </div>
           <div style={{ marginTop: 5 }}>
             <span style={{ marginRight: 5 }}>时间:</span>
-            <span>{blogdetailmodel.cdt}</span>
+            <span>{moment(blogdetailmodel.cdt).format('YYYY-MM-DD HH:mm:ss')}</span>
           </div>
           <Divider dashed={blogdetailmodel.dividerDashed} />
           <div className={`${style.forPreview} ${style.forMarkdownPreview}`} dangerouslySetInnerHTML={{ __html: output }} />
@@ -93,7 +94,6 @@ class BlogDetail extends Component {
     else {
       renderResult = (<Exception404 />);
     }
-
 
     return (
       <PageHeaderWrapper title='博客详情'>

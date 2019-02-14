@@ -72,23 +72,28 @@ export default {
   externals: {
     '@antv/data-set': 'DataSet',
   },
+  // proxy: {
+  //   '/api': {
+  //     target: 'http://localhost:52442/',
+  //     changeOrigin: true,
+  //   },
+  //   '/connect/token': {
+  //     target: 'http://localhost:52443/',
+  //     changeOrigin: true,
+  //   }
+  // },
+
   proxy: {
     '/api': {
-      target: 'http://localhost:52442/',
+      target: 'http://118.24.44.181:3002/',
       changeOrigin: true,
     },
     '/connect/token': {
-      target: 'http://localhost:52443/',
+      target: 'http://118.24.44.181:3003/',
       changeOrigin: true,
     }
   },
 
-  // proxy: {
-  //   '/api': {
-  //     target: 'http://118.24.44.181:3002/',
-  //     changeOrigin: true,
-  //   },
-  // },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,

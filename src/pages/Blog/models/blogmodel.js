@@ -29,6 +29,12 @@ export default {
   },
 
   effects: {
+    *changeSearchStartDate({ parms }, { put }) {
+      yield put({
+        type: 'saveSearchDate',
+        payload: parms
+      });
+    },
     *changeInputTitle({ parms }, { put }) {
       yield put({
         type: 'saveSearchTitle',
@@ -245,6 +251,13 @@ export default {
   },
 
   reducers: {
+    saveSearchDate(state, action){
+      return {
+        ...state,
+        searchStartDate: action.payload.searchStartDate,
+        searchEndDate: action.payload.searchEndDate,
+      };
+    },
     saveSearchEnabled(state, action){
       return {
         ...state,

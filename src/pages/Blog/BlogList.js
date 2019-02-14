@@ -110,10 +110,10 @@ class BlogList extends React.Component {
         }
     }
 
-    onCancel = () => {
+     onChangeDatePicker=(date, dateString)=>{
         const { dispatch } = this.props;
-        dispatch({ type: "classificationmodel/changeModel", parms: { modelVisible: false, name: "", color: "" } })
-    }
+        dispatch({ type: "blogmodel/changeSearchStartDate", parms: { searchStartDate: dateString[0],searchEndDate: dateString[1]} })
+      }
 
     inputOnChangeTitle = (e) => {
         const { dispatch } = this.props;
@@ -169,7 +169,7 @@ class BlogList extends React.Component {
                   <Form.Item label="标题" style={{ display: 'flex' }}><Input placeholder="请填写标题" style={{ minWidth: 330 }} onChange={this.inputOnChangeTitle} /></Form.Item>
                 </Col>
                 <Col className="gutter-row" span={6}>
-                  <Form.Item label="时间" style={{ display: 'flex' }}><RangePicker style={{ minWidth: 330 }} /></Form.Item>
+                  <Form.Item label="时间" style={{ display: 'flex' }}><RangePicker style={{ minWidth: 330 }} onChange={this.onChangeDatePicker} /></Form.Item>
                 </Col>
                 <Col className="gutter-row" span={6}>
                   <Form.Item label="标签" style={{ display: 'flex' }}>
