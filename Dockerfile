@@ -1,4 +1,4 @@
-FROM node
+FROM circleci/node:latest-browsers
 
 WORKDIR /usr/src/app/
 USER root

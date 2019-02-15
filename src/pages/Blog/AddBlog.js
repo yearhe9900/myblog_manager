@@ -148,7 +148,7 @@ class AddBlog extends React.Component {
               <Editor value={blogmodel.quillValue} onChange={this.handleChange} />
             </Col>
             <Col className="gutter-row" span={6}>
-              <Upload accept=".jpg, .jpeg, .png, .mp4, .gif" action="http://localhost:52442/api/UploadFile/Upload" headers={{ ContentType: 'multipart/form-data' }} onChange={this.onFileChange}>
+              <Upload accept=".jpg, .jpeg, .png, .mp4, .gif" action="http://blogcore.sheisanangel.cn/api/UploadFile/Upload" headers={{ ContentType: 'multipart/form-data' }} onChange={this.onFileChange}>
                 <Button><Icon type="upload" /> Upload</Button>
               </Upload>
             </Col>
