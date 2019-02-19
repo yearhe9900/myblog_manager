@@ -308,7 +308,7 @@ export default {
     saveList(state, action) {
       return {
         ...state,
-        dataSource: action.payload.classifications,
+        dataSource: action.payload.output,
         total: action.payload.total,
         loading: false
       };
