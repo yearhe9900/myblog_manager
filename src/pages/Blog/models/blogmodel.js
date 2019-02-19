@@ -25,7 +25,8 @@ export default {
     searchStartDate: null,
     searchEndDate: null,
     searchTag: "",
-    searchEnabled: null
+    searchEnabled: null,
+    reloadLoading:true
   },
 
   effects: {
@@ -225,6 +226,10 @@ export default {
       });
     },
     *getClassificationList(_, { call, put }) {
+      yield put({
+        type: 'saveReloadLoading',
+        payload: true
+      });
       const response = yield call(getEnabledClassificationList);
       if (response && response.code === "200") {
         yield put({
@@ -235,6 +240,10 @@ export default {
       else if (response && response.code !== "200") {
         message.error(response.msg);
       }
+      yield put({
+        type: 'saveReloadLoading',
+        payload: false
+      });
     },
     *changePageInfo({ parms }, { put }) {
       yield put({
@@ -274,6 +283,12 @@ export default {
       return {
         ...state,
         searchTag: action.payload.searchTag,
+      };
+    },
+    saveReloadLoading(state, action) {
+      return {
+        ...state,
+        reloadLoading: action.payload,
       };
     },
     saveLoading(state, action) {

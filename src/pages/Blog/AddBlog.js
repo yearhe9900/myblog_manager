@@ -3,20 +3,30 @@ import { Button, Card, Row, Col, Upload, notification, Icon, Input, Select, Tag 
 import { connect } from 'dva';
 import Editor from '@/components/MarkdownEditor'
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import AddOrEditClassification from '@/pages/Classification/AddOrEditClassification';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
-@connect(({ blogmodel }) => ({
-  blogmodel,
+@connect(({ blogmodel,classificationmodel }) => ({
+  blogmodel,classificationmodel
 }))
 
 class AddBlog extends React.Component {
   componentDidMount() {
+    this.reload()
+  }
+
+  reload=()=>{
     const { dispatch } = this.props;
     dispatch({
       type: 'blogmodel/getClassificationList',
     });
+  }
+
+  add = () => {
+    const { dispatch } = this.props;
+    dispatch({ type: "classificationmodel/changeModel", parms: { modelVisible: true, title: "添加类别", isAdd: true } })
   }
 
   saveMarkdown = () => {
@@ -124,23 +134,34 @@ class AddBlog extends React.Component {
     }
     return (
       <PageHeaderWrapper title={phTitle}>
+        <AddOrEditClassification />
         <Card>
           <Input placeholder="输入文章主题" addonBefore='文章主题' value={blogmodel.title} onChange={this.titleChange} />
           <TextArea placeholder="文章简介" autosize style={{ marginTop: 10 }} value={blogmodel.description} onChange={this.descriptionChange} />
           <Input placeholder="输入封面图地址" addonBefore='封面图' style={{ marginTop: 10 }} value={blogmodel.logo} onChange={this.logoChange} />
-          <Select
-            mode="multiple"
-            style={{ width: '100%', marginTop: 10 }}
-            placeholder="选择标签"
-            onChange={this.changeClassification}
-            value={blogmodel.classificationIds}
-          >
-            {
+          <Row gutter={16}>
+            <Col className="gutter-row" span={22}>
+              <Select
+                mode="multiple"
+                style={{ width: '100%', marginTop: 10 }}
+                placeholder="选择标签"
+                onChange={this.changeClassification}
+                value={blogmodel.classificationIds}
+              >
+                {
               blogmodel.classificationList.map((item) => (
                 <Option key={item.id}>{<Tag color={item.color}>{item.name}</Tag>}</Option>
               ))
             }
-          </Select>
+              </Select>
+            </Col>
+            <Col className="gutter-row" span={1}>
+              <Button type="primary" shape="circle" icon="plus" style={{  marginTop: 10 }} onClick={this.add} />
+            </Col>
+            <Col className="gutter-row" span={1}>
+              <Button shape="circle" icon="reload" style={{  marginTop: 10 }} loading={blogmodel.reloadLoading} onClick={this.reload} />
+            </Col>
+          </Row>
         </Card>
         <Card>
           <Row gutter={16}>
