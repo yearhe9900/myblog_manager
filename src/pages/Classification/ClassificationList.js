@@ -1,13 +1,13 @@
 import React from 'react';
-import { Card, Table, Tag, Button, Modal} from 'antd';
+import { Card, Table, Tag, Button, Modal } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import AddOrEditClassification from '@/pages/Classification/AddOrEditClassification';
+import AddOrEditClassification from '@/components/AddOrEditClassification';
 
 const { confirm } = Modal;
 
 @connect(({ classificationmodel }) => ({
-    classificationmodel,
+    classificationmodel
 }))
 
 class Classification extends React.Component {
@@ -118,7 +118,7 @@ class Classification extends React.Component {
             <Card>
               <Button type="primary" shape="circle" icon="reload" loading={classificationmodel.loading} onClick={this.btnClick} />
               <Button shape="circle" icon="plus" style={{ marginLeft: 5 }} onClick={this.add} />
-              <Table columns={this.columns} dataSource={classificationmodel.dataSource} loading={classificationmodel.loading} pagination={pagination} style={{marginTop:5}} />
+              <Table columns={this.columns} dataSource={classificationmodel.dataSource} loading={classificationmodel.loading} pagination={pagination} style={{ marginTop: 5 }} />
             </Card>
           </PageHeaderWrapper>
         );

@@ -8,7 +8,7 @@ import { SketchPicker } from 'react-color';
     classificationmodel,
 }))
 
-class AddOrEditClassification extends React.Component {
+class AddOrEditclassification extends React.Component {
     onOk = () => {
         const { dispatch, classificationmodel } = this.props;
         if (classificationmodel.isAdd) {
@@ -59,4 +59,4 @@ class AddOrEditClassification extends React.Component {
     }
 }
 
-export default AddOrEditClassification;
+export default AddOrEditclassification;

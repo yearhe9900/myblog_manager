@@ -3,7 +3,7 @@ import { Button, Card, Row, Col, Upload, notification, Icon, Input, Select, Tag 
 import { connect } from 'dva';
 import Editor from '@/components/MarkdownEditor'
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import AddOrEditClassification from '@/pages/Classification/AddOrEditClassification';
+import AddOrEditClassification from '@/components/AddOrEditClassification';
 
 const { TextArea } = Input;
 const { Option } = Select;
