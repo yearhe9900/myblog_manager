@@ -28,7 +28,6 @@ class BlogDetail extends Component {
     });
   }
 
-
   showConfirm = (id, isStart) => {
     const { dispatch } = this.props;
     confirm({
