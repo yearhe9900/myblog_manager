@@ -9,7 +9,7 @@ import logo from '../assets/logo.svg';
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2019 熊本熊的爱情故事
+    Copyright <Icon type="copyright" /> 2019 清风微凉
   </Fragment>
 );
 
@@ -27,7 +27,7 @@ class UserLayout extends React.PureComponent {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>熊本熊的爱情故事</span>
+                <span className={styles.title}>清风微凉</span>
               </Link>
             </div>
             <div className={styles.desc} />
