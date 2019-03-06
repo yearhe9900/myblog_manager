@@ -21,6 +21,7 @@ class BlogList extends React.Component {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
+        width: 300
     }, {
         title: '简介',
         dataIndex: 'description',
@@ -30,7 +31,10 @@ class BlogList extends React.Component {
         title: '标签',
         dataIndex: 'tags',
         key: 'tags',
-        render: (text) => text.map((item) => <Tag color={item.color} key={item.key}>{item.name}</Tag>)
+        render: (text) => text.map((item,index) => {
+          console.log(index)
+          return <Tag color={item.color} key={item.key}>{item.name}</Tag>
+        } )
     }, {
         title: '时间',
         dataIndex: 'cdt',

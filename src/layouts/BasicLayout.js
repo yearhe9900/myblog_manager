@@ -65,9 +65,9 @@ class BasicLayout extends React.PureComponent {
       type: 'menu/getMenuData',
       payload: { routes, authority },
     });
-    dispatch({
-      type: 'user/fetchCurrent',
-    });
+    // dispatch({
+    //   type: 'user/fetchCurrent',
+    // });
   }
 
   componentDidUpdate(preProps) {
