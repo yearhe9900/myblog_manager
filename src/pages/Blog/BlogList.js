@@ -31,9 +31,10 @@ class BlogList extends React.Component {
         title: '标签',
         dataIndex: 'tags',
         key: 'tags',
-        render: (text) => text.map((item) => 
-          <Tag color={item.color} key={item.key}>{item.name}</Tag>
-        )
+        render: (text) => text.map((item,index) => {
+          console.log(index)
+          return <Tag color={item.color} key={item.key}>{item.name}</Tag>
+        } )
     }, {
         title: '时间',
         dataIndex: 'cdt',
@@ -144,6 +145,7 @@ class BlogList extends React.Component {
 
     render() {
         const { blogmodel, dispatch } = this.props;
+
         const pagination = {
             total: blogmodel.total,
             defaultCurrent: 1,
