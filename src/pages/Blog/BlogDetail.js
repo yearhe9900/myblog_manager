@@ -52,7 +52,7 @@ class BlogDetail extends Component {
     const { blogdetailmodel, dispatch ,history} = this.props;
     dispatch({
       type: 'blogmodel/saveDataByBlogDetail',
-      parms: { id: blogdetailmodel.id, title: blogdetailmodel.title, description: blogdetailmodel.description, logo: blogdetailmodel.logo, classificationIds: blogdetailmodel.classificationIds, content: blogdetailmodel.content,enabled:blogdetailmodel.enabled }
+      parms: { id: blogdetailmodel.id, title: blogdetailmodel.title, description: blogdetailmodel.description, classificationIds: blogdetailmodel.classificationIds, content: blogdetailmodel.content,enabled:blogdetailmodel.enabled }
     });
     history.push('add-blog')
   }

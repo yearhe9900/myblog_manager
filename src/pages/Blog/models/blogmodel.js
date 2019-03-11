@@ -10,7 +10,6 @@ export default {
     classificationList: [],
     title: '',
     description: '',
-    logo: '',
     classificationIds: [],
     id: '',
     submitLoading: false,
@@ -132,12 +131,6 @@ export default {
     *changeDescription({ parm }, { put }) {
       yield put({
         type: 'saveDescription',
-        payload: parm,
-      });
-    },
-    *changeLogo({ parm }, { put }) {
-      yield put({
-        type: 'saveLogo',
         payload: parm,
       });
     },
@@ -331,12 +324,6 @@ export default {
         classificationIds: action.payload,
       };
     },
-    saveLogo(state, action) {
-      return {
-        ...state,
-        logo: action.payload,
-      };
-    },
     saveDescription(state, action) {
       return {
         ...state,
@@ -374,7 +361,6 @@ export default {
         fileList: [],
         title: '',
         description: '',
-        logo: '',
         classificationIds: []
       };
     },
@@ -385,7 +371,6 @@ export default {
         quillValue: action.payload.content,
         title: action.payload.title,
         description: action.payload.description,
-        logo: action.payload.logo,
         classificationIds: action.payload.classificationIds,
         enabled: action.payload.enabled,
       };

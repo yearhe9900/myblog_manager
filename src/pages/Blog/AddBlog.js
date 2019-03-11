@@ -8,8 +8,8 @@ import AddOrEditClassification from '@/components/AddOrEditClassification';
 const { TextArea } = Input;
 const { Option } = Select;
 
-@connect(({ blogmodel,classificationmodel }) => ({
-  blogmodel,classificationmodel
+@connect(({ blogmodel, classificationmodel }) => ({
+  blogmodel, classificationmodel
 }))
 
 class AddBlog extends React.Component {
@@ -17,7 +17,7 @@ class AddBlog extends React.Component {
     this.reload()
   }
 
-  reload=()=>{
+  reload = () => {
     const { dispatch } = this.props;
     dispatch({
       type: 'blogmodel/getClassificationList',
@@ -34,13 +34,13 @@ class AddBlog extends React.Component {
     if (blogmodel.id) {
       dispatch({
         type: 'blogmodel/editBlog',
-        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
+        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
       });
     }
     else {
       dispatch({
         type: 'blogmodel/addBlog',
-        parms: { Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
+        parms: { Title: blogmodel.title, Description: blogmodel.description, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
       });
     }
   }
@@ -50,13 +50,13 @@ class AddBlog extends React.Component {
     if (blogmodel.id) {
       dispatch({
         type: 'blogmodel/editBlogThenOut',
-        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
+        parms: { ID: blogmodel.id, Title: blogmodel.title, Description: blogmodel.description, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue, Enabled: blogmodel.enabled }
       });
     }
     else {
       dispatch({
         type: 'blogmodel/addBlogThenOut',
-        parms: { Title: blogmodel.title, Description: blogmodel.description, Logo: blogmodel.logo, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
+        parms: { Title: blogmodel.title, Description: blogmodel.description, ClassificationIds: blogmodel.classificationIds, Content: blogmodel.quillValue }
       });
     }
   }
@@ -114,15 +114,6 @@ class AddBlog extends React.Component {
     });
   }
 
-  // 修改封面
-  logoChange = (e) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'blogmodel/changeLogo',
-      parm: e.target.value
-    });
-  }
-
   render() {
     const { blogmodel } = this.props;
     let phTitle = "添加博客";
@@ -138,7 +129,6 @@ class AddBlog extends React.Component {
         <Card>
           <Input placeholder="输入文章主题" addonBefore='文章主题' value={blogmodel.title} onChange={this.titleChange} />
           <TextArea placeholder="文章简介" autosize style={{ marginTop: 10 }} value={blogmodel.description} onChange={this.descriptionChange} />
-          <Input placeholder="输入封面图地址" addonBefore='封面图' style={{ marginTop: 10 }} value={blogmodel.logo} onChange={this.logoChange} />
           <Row gutter={16}>
             <Col className="gutter-row" span={22}>
               <Select
@@ -149,17 +139,17 @@ class AddBlog extends React.Component {
                 value={blogmodel.classificationIds}
               >
                 {
-              blogmodel.classificationList.map((item) => (
-                <Option key={item.id}>{<Tag color={item.color}>{item.name}</Tag>}</Option>
-              ))
-            }
+                  blogmodel.classificationList.map((item) => (
+                    <Option key={item.id}>{<Tag color={item.color}>{item.name}</Tag>}</Option>
+                  ))
+                }
               </Select>
             </Col>
             <Col className="gutter-row" span={1}>
-              <Button type="primary" shape="circle" icon="plus" style={{  marginTop: 10 }} onClick={this.add} />
+              <Button type="primary" shape="circle" icon="plus" style={{ marginTop: 10 }} onClick={this.add} />
             </Col>
             <Col className="gutter-row" span={1}>
-              <Button shape="circle" icon="reload" style={{  marginTop: 10 }} loading={blogmodel.reloadLoading} onClick={this.reload} />
+              <Button shape="circle" icon="reload" style={{ marginTop: 10 }} loading={blogmodel.reloadLoading} onClick={this.reload} />
             </Col>
           </Row>
         </Card>
