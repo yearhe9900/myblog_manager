@@ -155,10 +155,10 @@ class AddBlog extends React.Component {
         </Card>
         <Card>
           <Row gutter={16}>
-            <Col className="gutter-row" span={18}>
+            <Col className="gutter-row" span={22}>
               <Editor value={blogmodel.quillValue} onChange={this.handleChange} />
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={2}>
               <Upload accept=".jpg, .jpeg, .png, .mp4, .gif" action="http://blogcore.sheisanangel.cn/api/UploadFile/Upload" headers={{ ContentType: 'multipart/form-data' }} onChange={this.onFileChange}>
                 <Button><Icon type="upload" /> Upload</Button>
               </Upload>
